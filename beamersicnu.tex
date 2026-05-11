@@ -1,0 +1,309 @@
+\documentclass{beamer}
+\usepackage{amsfonts,amsmath,oldgerm}
+\usetheme{sicnu}
+\usepackage{xeCJK}
+
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+
+\usefonttheme[onlymath]{serif}
+
+\titlebackground*{assets/background}
+
+\newcommand{\hrefcol}[2]{\textcolor{cyan}{\href{#1}{#2}}}
+
+\title{四川师范大学 Beamer 模板}
+\subtitle{基于 SINTEF 主题改编}
+% \course{计算机科学硕士课程}
+\author{作者一、作者二}
+% \IDnumber{1234567}
+\date{2024年5月}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+
+本模板改编自 \hrefcol{https://www.overleaf.com/latex/templates/sintef-presentation/jhbhdffczpnx}{SINTEF Presentation}（原作者 \hrefcol{mailto:federico.zenith@sintef.no}{Federico Zenith}）以及其衍生版本 \hrefcol{https://github.com/TOB-KNPOB/Beamer-LaTeX-Themes}{Beamer-LaTeX-Themes}（作者：刘奇隆）。
+
+\vspace{\baselineskip}
+
+由 \hrefcol{https://github.com/wzl-plasmid}{wzl-plasmid（普通质粒）} 进行中国科学院大学风格适配，再由当前作者改编为四川师范大学风格。
+
+\vspace{\baselineskip}
+
+以下简要介绍如何使用 \LaTeX\ 及 beamer 宏包制作幻灯片。
+
+\end{frame}
+
+\section{简介}
+
+\begin{frame}{Beamer 简介}
+\begin{itemize}
+\item 假设你已具备 \LaTeX\ 基础；若不了解，可参考 \hrefcol{http://en.wikibooks.org/wiki/LaTeX/}{LaTeX WikiBook}
+\item Beamer 是 \LaTeX\ 中最流行且功能强大的演示文稿文档类之一
+\item Beamer 拥有详细的 \hrefcol{http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{用户手册}
+\item 以下仅介绍最基本的功能，帮助你快速上手
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Beamer vs PowerPoint}
+与 PowerPoint 相比，使用 \LaTeX\ 的优势在于：
+\begin{itemize}
+\item 不是所见即所得，而是所想即所得：你负责内容，计算机负责排版
+\item 生成 \texttt{pdf}：无字体、公式、版本兼容问题
+\item 更易保持风格、字体、高亮等元素的一致性
+\item \TeX\ 的数学排版效果最佳：
+\begin{equation*}
+\mathrm{i}\,\hslash\frac{\partial}{\partial t} \Psi(\mathbf{r},t) =
+-\frac{\hslash^2}{2\,m}\nabla^2\Psi(\mathbf{r},t)
++ V(\mathbf{r})\Psi(\mathbf{r},t)
+\end{equation*}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{快速开始}
+\framesubtitle{选择 SICNU 主题}
+要使用 \texttt{sicnubeamer}，请在 \LaTeX\ 文档的导言区写入：
+\begin{block}{最小 SICNU Beamer 文档}
+\verb|\documentclass{beamer}|\\
+\verb|\usetheme{sicnu}|\\
+\verb|\begin{document}|\\
+\verb|\begin{frame}{Hello, world!}|\\
+\verb|\end{frame}|\\
+\verb|\end{document}|\\
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{标题页}
+设置典型标题页，需要在导言区调用一些命令：
+\begin{block}{标题页命令}
+\begin{verbatim}
+\title{标题示例}
+\subtitle{副标题示例}
+\author{作者一, 作者二}
+\date{\today}
+\end{verbatim}
+\end{block}
+随后使用 \verb|\maketitle| 输出标题页。
+
+使用 \verb|\titlebackground| 命令设置\textbf{背景图片}（需在 \verb|\maketitle| 之前调用），其唯一参数为图片文件名（或路径）。
+
+若使用 \textbf{星号版本} \verb|\titlebackground*|，图片将被裁剪为标题页右侧的分割视图。
+
+\end{frame}
+
+\begin{frame}[fragile]{编写简单幻灯片}
+\framesubtitle{其实很简单！}
+\begin{itemize}[<+->]
+\item 典型幻灯片包含项目符号列表
+\item 列表项可以按顺序逐步显示
+\end{itemize}
+\begin{block}{带项目列表的页面代码}<+->
+\begin{verbatim}
+\begin{frame}{编写简单幻灯片}
+  \framesubtitle{其实很简单！}
+  \begin{itemize}[<+->]
+    \item 典型幻灯片包含项目符号列表
+    \item 列表项可以按顺序逐步显示
+  \end{itemize}\end{frame}
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\section{个性化}
+
+\footlinecolor{sicnuyellow}
+\begin{frame}[fragile]{更改幻灯片样式}
+\begin{itemize}
+\item 可在\textbf{导言区}选择白色或 \textit{maincolor} \textbf{幻灯片样式}，使用 \verb|\themecolor{white}|（默认）或 \verb|\themecolor{main}|
+      \begin{itemize}
+      \item 不应在文档中途更改：Beamer 不支持
+      \item 若确实需要，可在幻灯片中添加 \verb|\usebeamercolor[fg]{normal text}|
+      \end{itemize}
+\item 使用 \verb|\footlinecolor{color}| 更改\textbf{页脚颜色}
+      \begin{itemize}
+      \item 在 \verb|frame| 环境之前放置该命令
+      \item 官方颜色有：\testcolor{maincolor}、\testcolor{sicnuyellow}、
+      \testcolor{sicnugreen}、\testcolor{sicnudarkgreen}
+      \item 默认无页脚；可用 \verb|\footlinecolor{}| 恢复
+      \item 其他颜色可能有效，但不保证
+      \item 不应与 \verb|maincolor| 主题同时使用
+      \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{文本框}
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\begin{block}{标准文本框}
+颜色与页脚协调（蓝色主题下为灰色）
+\begin{verbatim}
+\begin{block}{标题}
+内容...
+\end{block}
+\end{verbatim}
+\end{block}
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{colorblock}[black]{sicnulightgreen}{彩色文本框}
+与左侧类似，但可自定义颜色。默认文字为白色，也可通过可选参数修改。
+\small
+\begin{verbatim}
+\begin{colorblock}[black]{sicnulightgreen}{标题}
+内容...
+\end{colorblock}
+\end{verbatim}
+\end{colorblock}
+彩色文本框的``官方''颜色有：\testcolor{sicnulilla}、
+\testcolor{maincolor}、\testcolor{sicnudarkgreen}、
+\testcolor{sicnuyellow}。
+\end{column}
+\end{columns}
+\end{frame}
+
+\footlinecolor{}
+\begin{frame}[fragile]{使用颜色}
+\begin{itemize}[<alert@2>]
+  \item 使用 \verb|\textcolor{<color name>}{text}| 命令设置颜色
+  \item 颜色在 \texttt{sicnucolor} 宏包中定义：
+  \begin{itemize}
+  \item 主色：\testcolor{maincolor} 及其搭配 \testcolor{sicnugrey}
+  \item 三种绿色：\testcolor{sicnulightgreen}、
+  \testcolor{sicnugreen}、\testcolor{sicnudarkgreen}
+  \item 附加颜色：\testcolor{sicnuyellow}、\testcolor{sicnupurple}、
+        \testcolor{sicnulilla}
+        \begin{itemize}
+        \item 这些颜色可调暗——请参阅 \verb|sicnucolor| 文档
+        \end{itemize}
+  \end{itemize}
+  \item 不要滥用颜色：\verb|\emph{}| 通常已足够
+  \item 使用 \verb|\alert{}| 来突出 \alert<2->{重点}
+  \item<2- | alert@2> 如果什么都高亮，那就等于什么都没高亮！
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{插入图片}
+\begin{columns}
+\begin{column}{0.7\textwidth}
+插入图片与普通 \LaTeX\ 相同：
+\begin{block}{插入图片代码}
+\begin{verbatim}
+\usepackage{graphicx}
+% ...
+\includegraphics[width=\textwidth]
+{assets/logo}
+\end{verbatim}
+\end{block}
+\end{column}
+\begin{column}{0.3\textwidth}
+\includegraphics[width=\textwidth]
+{assets/logo}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{分栏排版}
+分栏简单且常用；
+通常一侧放图片，另一侧放文字：
+\begin{columns}
+\begin{column}{0.6\textwidth}
+这是第一栏
+\end{column}
+\begin{column}{0.3\textwidth}
+这是第二栏
+\end{column}
+\end{columns}
+\begin{block}{分栏代码}
+\begin{verbatim}
+\begin{columns}
+    \begin{column}{0.6\textwidth}
+        这是第一栏
+    \end{column}
+    \begin{column}{0.3\textwidth}
+        这是第二栏
+    \end{column}
+    % 还可以有更多！
+\end{columns}
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{chapter}[assets/background_negative]{}{特色幻灯片}
+\begin{itemize}
+\item 章节幻灯片
+\item 侧边图片幻灯片
+\end{itemize}
+\end{chapter}
+
+\footlinecolor{sicnupurple}
+\begin{frame}[fragile]{章节幻灯片}
+\begin{itemize}
+\item 类似 \verb|frame|，但提供更多选项
+\item 使用 \verb|\begin{chapter}[<image>]{<color>}{<title>}| 开启
+\item 图片可选，颜色和标题必填
+\item 有七种``官方''颜色：\testcolor{maincolor}、
+\testcolor{sicnudarkgreen}、\testcolor{sicnugreen}、
+\testcolor{sicnulightgreen}、\testcolor{sicnupurple}、\testcolor{sicnuyellow}、
+\testcolor{sicnulilla}。
+      \begin{itemize}
+      \item 奇怪的是，这些颜色比页脚的官方颜色\emph{更多}。
+      \item 将后续幻灯片的页脚改为与章节幻灯片相同的颜色也是个不错的选择。
+      \end{itemize}
+\item 除此之外，\verb|chapter| 与 \verb|frame| 行为相同。
+\end{itemize}
+\end{frame}
+
+\begin{sidepic}{assets/teaching_building}{侧边图片幻灯片}
+\begin{itemize}
+\item 使用 \texttt{$\backslash$begin\{sidepic\}\{<image>\}\{<title>\}} 开启
+\item 除此之外，\texttt{sidepic} 与 \texttt{frame} 行为相同
+\end{itemize}
+\end{sidepic}
+
+\footlinecolor{}
+\begin{frame}
+\frametitle{字体}
+\begin{itemize}
+\item 字体的首要任务是可读性
+\item 有好字体...
+  \begin{itemize}
+  \item {\textrm{仅在使用高清投影仪时使用衬线字体}}
+  \item {\textsf{其他情况下使用无衬线字体（或如果你更喜欢）}}
+  \end{itemize}
+\item ... 也有不好的字体：
+  \begin{itemize}
+  \item {\texttt{不要在正文中使用等宽字体}}
+  \item {\frakfamily 哥特体、手写体或怪异字体：应始终避免}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{外观}
+\begin{itemize}
+\item 要插入带有标题和致谢的最终幻灯片，使用 \verb|\backmatter|。
+      \begin{itemize}
+      \item 标题也会出现在页脚中，与作者名一起；可用 \verb|\footlinepayoff| 更改此文本
+      \item 使用 \verb|\backmatter[notitle]| 可移除最终幻灯片的标题
+      \end{itemize}
+\item 宽高比默认为 16:9，不应为了老旧投影仪而改为 4:3，
+      因为将 16:9 演示文稿完美转换为 4:3 是不可能的；间距\emph{会}出问题
+      \begin{itemize}
+      \item beamer 文档类的 \texttt{aspectratio} 参数会被 SICNU 主题覆盖
+      \item 若你\emph{确实}知道自己在做什么，请查看宏包代码中的 \texttt{geometry} 类。
+      \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{总结}
+
+\begin{frame}
+\frametitle{祝你好运！}
+\begin{itemize}
+\item 简介到此结束！你现在应该已经了解足够多了
+\item 如有更正或建议，欢迎联系作者
+\end{itemize}
+\end{frame}
+
+\backmatter
+\end{document}
